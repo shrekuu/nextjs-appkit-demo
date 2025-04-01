@@ -60,15 +60,16 @@ export async function POST(req: NextRequest) {
     const storedAddress = session.tempAddress;
 
     // verify the nonce
-    if (reqBody.nonce !== storedNonce && reqBody.accountAddress !== storedAddress) {
-      return NextResponse.json(
-        {
-          statusCode: 400,
-          message: "Invalid nonce",
-        },
-        { status: 400 }
-      );
-    }
+    // solana verifiers does not carry nonce when users refresh the page
+    // if (reqBody.nonce !== storedNonce && reqBody.accountAddress !== storedAddress) {
+    //   return NextResponse.json(
+    //     {
+    //       statusCode: 400,
+    //       message: "Invalid nonce",
+    //     },
+    //     { status: 400 }
+    //   );
+    // }
 
     // Verify using native Solana verification
     const isValid = nacl.sign.detached.verify(new TextEncoder().encode(message), bs58.decode(signature), new PublicKey(accountAddress).toBytes());

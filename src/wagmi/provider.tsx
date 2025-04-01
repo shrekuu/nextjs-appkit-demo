@@ -6,6 +6,8 @@ import { createAppKit } from "@reown/appkit";
 import React, { type ReactNode } from "react";
 import { cookieToInitialState, WagmiProvider, type Config } from "wagmi";
 import { AppSIWX } from "./AppSIWX";
+import { DefaultSIWX, EIP155Verifier, SolanaVerifier } from "@reown/appkit-siwx";
+import { siwx } from "./siwx";
 
 // Set up queryClient
 const queryClient = new QueryClient();
@@ -49,7 +51,8 @@ export const modal = createAppKit({
   themeVariables: {
     "--w3m-accent": "#000000",
   },
-  siwx: new AppSIWX(),
+  // siwx: new AppSIWX(),
+  siwx: siwx,
   debug: true,
 });
 
