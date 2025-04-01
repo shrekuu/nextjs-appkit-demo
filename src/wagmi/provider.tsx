@@ -1,11 +1,11 @@
 "use client";
 
-import { wagmiAdapter, projectId, networks } from "./config";
+import { wagmiAdapter, projectId, networks, solanaWeb3JsAdapter } from "./config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createAppKit } from "@reown/appkit/react";
+import { createAppKit } from "@reown/appkit";
 import React, { type ReactNode } from "react";
 import { cookieToInitialState, WagmiProvider, type Config } from "wagmi";
-import { DefaultSIWX } from "@reown/appkit-siwx";
+import { AppSIWX } from "./AppSIWX";
 
 // Set up queryClient
 const queryClient = new QueryClient();
@@ -20,7 +20,7 @@ const metadata = {
 
 // Create the modal
 export const modal = createAppKit({
-  adapters: [wagmiAdapter],
+  adapters: [wagmiAdapter, solanaWeb3JsAdapter ],
   projectId,
   networks,
   metadata,
@@ -49,8 +49,8 @@ export const modal = createAppKit({
   themeVariables: {
     "--w3m-accent": "#000000",
   },
-  siwx: new DefaultSIWX(),
-  // debug: true,
+  siwx: new AppSIWX(),
+  debug: true,
 });
 
 function ContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
